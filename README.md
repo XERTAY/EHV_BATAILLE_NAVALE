@@ -1,5 +1,7 @@
 # 🚢 Bataille Navale - Monorepo Moderne
 
+Lien fichier de gestion de groupe (diagramme de grantt): https://ueve-my.sharepoint.com/:x:/g/personal/20230558_etud_univ-evry_fr/IQD3VPYAOzLFSonUVXGCpXoKAThErpbWFtZSiIebD82poFY?e=URvgJ7
+
 Projet de Bataille Navale respectant les règles classiques : placement de navires, tirs tour par tour, multijoueur temps réel.
 
 **Architecture MVC stricte** : Modèle Java pur, Backend Spring Boot, Frontend React, Client Desktop Tauri.
