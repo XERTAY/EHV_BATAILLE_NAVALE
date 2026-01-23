@@ -87,6 +87,86 @@ function App() {
     }
   }, [gameState.playerGrid, selectedShip, orientation, shipsToPlace.length]);
 
+  const aiTurn = useCallback(() => {
+    const executeAITurn = () => {
+      setGameState(prev => {
+        // Vérifier que c'est bien le tour de l'IA
+        if (prev.currentPhase !== 'PLAYING' || prev.currentPlayer !== 'OPPONENT') {
+          return prev;
+        }
+
+        // IA simple : tire aléatoirement sur les cases non touchées
+        const availableCells: Coordinate[] = [];
+        
+        for (let y = 0; y < GRID_SIZE; y++) {
+          for (let x = 0; x < GRID_SIZE; x++) {
+            const status = prev.playerGrid[y][x];
+            if (status !== CellStatus.HIT && status !== CellStatus.MISS && status !== CellStatus.SUNK) {
+              availableCells.push({ x, y });
+            }
+          }
+        }
+
+        if (availableCells.length === 0) {
+          return prev;
+        }
+
+        const randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
+
+        // Créer une copie de la grille et des navires pour shootAt
+        const gridCopy = prev.playerGrid.map(row => [...row]);
+        const shipsCopy = prev.playerShips.map(ship => ({
+          ...ship,
+          coordinates: [...ship.coordinates]
+        }));
+
+        const result = shootAt(
+          gridCopy,
+          shipsCopy,
+          randomCell
+        );
+
+        // Utiliser la grille modifiée par shootAt (qui a déjà mis à jour HIT/MISS/SUNK)
+        // shootAt modifie directement gridCopy et shipsCopy, donc on les utilise tels quels
+        const newPlayerGrid = gridCopy;
+        const updatedShips = shipsCopy;
+
+        // Vérifier si tous les navires du joueur sont coulés
+        if (result.sunk && result.shipId && areAllShipsSunk(updatedShips)) {
+          return {
+            ...prev,
+            playerGrid: newPlayerGrid,
+            playerShips: updatedShips,
+            currentPhase: 'GAME_OVER',
+            winner: 'OPPONENT',
+            currentPlayer: 'OPPONENT'
+          };
+        }
+
+        // Si touché, l'IA rejoue, sinon c'est au tour du joueur
+        const nextPlayer = result.hit ? 'OPPONENT' : 'PLAYER';
+
+        const newState = {
+          ...prev,
+          playerGrid: newPlayerGrid,
+          playerShips: updatedShips,
+          currentPlayer: nextPlayer
+        };
+
+        // Si l'IA a touché, elle rejoue immédiatement
+        if (result.hit) {
+          setTimeout(() => {
+            executeAITurn();
+          }, 1000);
+        }
+
+        return newState;
+      });
+    };
+
+    executeAITurn();
+  }, []);
+
   const handleShoot = useCallback((coord: Coordinate) => {
     if (gameState.currentPhase !== 'PLAYING' || gameState.currentPlayer !== 'PLAYER') return;
     
@@ -95,122 +175,55 @@ function App() {
       return; // Déjà tiré
     }
 
+    // Créer une copie de la grille et des navires pour shootAt
+    const gridCopy = gameState.opponentGrid.map(row => [...row]);
+    const shipsCopy = gameState.opponentShips.map(ship => ({
+      ...ship,
+      coordinates: [...ship.coordinates]
+    }));
+
     const result = shootAt(
-      [...gameState.opponentGrid.map(row => [...row])],
-      gameState.opponentShips,
+      gridCopy,
+      shipsCopy,
       coord
     );
 
     setGameState(prev => {
-      const newOpponentGrid = [...prev.opponentGrid.map(row => [...row])];
-      newOpponentGrid[coord.y][coord.x] = result.hit ? CellStatus.HIT : CellStatus.MISS;
+      // Utiliser la grille modifiée par shootAt (qui a déjà mis à jour HIT/MISS/SUNK)
+      // shootAt modifie directement gridCopy et shipsCopy, donc on les utilise tels quels
+      const newOpponentGrid = gridCopy;
+      const updatedShips = shipsCopy;
 
-      if (result.sunk) {
-        const updatedShips = prev.opponentShips.map(ship =>
-          ship.id === result.shipId ? { ...ship, sunk: true } : ship
-        );
-        
-        // Marquer toutes les cases du navire comme coulées
-        const sunkShip = updatedShips.find(s => s.id === result.shipId);
-        if (sunkShip) {
-          sunkShip.coordinates.forEach(c => {
-            newOpponentGrid[c.y][c.x] = CellStatus.SUNK;
-          });
-        }
-
-        // Vérifier si tous les navires adverses sont coulés
-        if (areAllShipsSunk(updatedShips)) {
-          return {
-            ...prev,
-            opponentGrid: newOpponentGrid,
-            opponentShips: updatedShips,
-            currentPhase: 'GAME_OVER',
-            winner: 'PLAYER'
-          };
-        }
-
+      // Vérifier si tous les navires adverses sont coulés
+      if (result.sunk && result.shipId && areAllShipsSunk(updatedShips)) {
         return {
           ...prev,
           opponentGrid: newOpponentGrid,
-          opponentShips: updatedShips
+          opponentShips: updatedShips,
+          currentPhase: 'GAME_OVER',
+          winner: 'PLAYER',
+          currentPlayer: 'PLAYER'
         };
       }
 
-      // Si pas touché, c'est au tour de l'adversaire (IA simple)
-      if (!result.hit) {
-        setTimeout(() => {
-          aiTurn();
-        }, 1000);
-      }
+      // Si touché, le joueur rejoue, sinon c'est au tour de l'IA
+      const nextPlayer = result.hit ? 'PLAYER' : 'OPPONENT';
 
       return {
         ...prev,
-        opponentGrid: newOpponentGrid
+        opponentGrid: newOpponentGrid,
+        opponentShips: updatedShips,
+        currentPlayer: nextPlayer
       };
     });
-  }, [gameState]);
 
-  const aiTurn = useCallback(() => {
-    // IA simple : tire aléatoirement sur les cases non touchées
-    const availableCells: Coordinate[] = [];
-    
-    for (let y = 0; y < GRID_SIZE; y++) {
-      for (let x = 0; x < GRID_SIZE; x++) {
-        const status = gameState.playerGrid[y][x];
-        if (status !== CellStatus.HIT && status !== CellStatus.MISS && status !== CellStatus.SUNK) {
-          availableCells.push({ x, y });
-        }
-      }
+    // Si pas touché, c'est au tour de l'adversaire (IA simple)
+    if (!result.hit) {
+      setTimeout(() => {
+        aiTurn();
+      }, 1000);
     }
-
-    if (availableCells.length === 0) return;
-
-    const randomCell = availableCells[Math.floor(Math.random() * availableCells.length)];
-    const result = shootAt(
-      [...gameState.playerGrid.map(row => [...row])],
-      gameState.playerShips,
-      randomCell
-    );
-
-    setGameState(prev => {
-      const newPlayerGrid = [...prev.playerGrid.map(row => [...row])];
-      newPlayerGrid[randomCell.y][randomCell.x] = result.hit ? CellStatus.HIT : CellStatus.MISS;
-
-      if (result.sunk) {
-        const updatedShips = prev.playerShips.map(ship =>
-          ship.id === result.shipId ? { ...ship, sunk: true } : ship
-        );
-        
-        const sunkShip = updatedShips.find(s => s.id === result.shipId);
-        if (sunkShip) {
-          sunkShip.coordinates.forEach(c => {
-            newPlayerGrid[c.y][c.x] = CellStatus.SUNK;
-          });
-        }
-
-        if (areAllShipsSunk(updatedShips)) {
-          return {
-            ...prev,
-            playerGrid: newPlayerGrid,
-            playerShips: updatedShips,
-            currentPhase: 'GAME_OVER',
-            winner: 'OPPONENT'
-          };
-        }
-
-        return {
-          ...prev,
-          playerGrid: newPlayerGrid,
-          playerShips: updatedShips
-        };
-      }
-
-      return {
-        ...prev,
-        playerGrid: newPlayerGrid
-      };
-    });
-  }, [gameState.playerGrid, gameState.playerShips]);
+  }, [gameState, aiTurn]);
 
   const getPreviewCoordinates = (): Coordinate[] => {
     if (!hoveredCoord || !selectedShip || gameState.currentPhase !== 'PLACEMENT') {
