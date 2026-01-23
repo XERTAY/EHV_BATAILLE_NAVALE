@@ -1,0 +1,110 @@
+.ship-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: #ecf0f1;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+}
+
+.ship-selector-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+  text-align: center;
+}
+
+.ship-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ship-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  background-color: white;
+  border: 2px solid #bdc3c7;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.ship-button:hover:not(.disabled) {
+  background-color: #3498db;
+  border-color: #2980b9;
+  color: white;
+  transform: translateX(4px);
+}
+
+.ship-button.selected {
+  background-color: #27ae60;
+  border-color: #1e8449;
+  color: white;
+  font-weight: bold;
+}
+
+.ship-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ship-preview {
+  display: flex;
+  gap: 2px;
+}
+
+.ship-segment {
+  width: 20px;
+  height: 20px;
+  background-color: #27ae60;
+  border: 1px solid #1e8449;
+  border-radius: 2px;
+}
+
+.ship-segment.horizontal {
+  /* Déjà en ligne par défaut */
+}
+
+.ship-segment.vertical {
+  flex-direction: column;
+}
+
+.ship-name {
+  flex: 1;
+  text-align: left;
+  font-weight: 500;
+}
+
+.ship-size {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.orientation-button {
+  padding: 10px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.orientation-button:hover:not(.disabled) {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+.orientation-button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

@@ -1,10 +1,171 @@
-.App {
+.app {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.app-header {
   text-align: center;
-  padding: 2rem;
+  color: white;
+  margin-bottom: 20px;
 }
 
-h1 {
+.app-header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0 0 16px 0;
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+}
+
+.game-over-message {
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 12px;
+  padding: 12px 24px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.game-status {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  backdrop-filter: blur(5px);
+}
+
+.game-container {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.grids-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.game-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.ships-status {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.ships-section {
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+}
+
+.ships-section h4 {
+  margin: 0 0 12px 0;
   color: #2c3e50;
-  margin-bottom: 1rem;
+  font-size: 16px;
+  text-align: center;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 8px;
 }
 
+.ships-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ship-status {
+  font-size: 14px;
+  color: #2c3e50;
+  padding: 6px 12px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ship-status.sunk {
+  background-color: #e74c3c;
+  color: white;
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+.reset-button {
+  padding: 12px 24px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.reset-button:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.reset-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 28px;
+  }
+
+  .game-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .grids-container {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .ships-status {
+    flex-direction: column;
+    align-items: center;
+  }
+}
