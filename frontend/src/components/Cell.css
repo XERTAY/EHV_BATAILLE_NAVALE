@@ -1,0 +1,99 @@
+.cell {
+  width: 32px;
+  height: 32px;
+  border: 2px solid #2c3e50;
+  background-color: #3498db;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  position: relative;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+.cell:hover:not(.cell-disabled) {
+  background-color: #5dade2;
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.cell-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.cell-empty {
+  background-color: #3498db;
+}
+
+.cell-ship {
+  background-color: #27ae60;
+  border-color: #1e8449;
+}
+
+.cell-hit {
+  background-color: #e74c3c;
+  border-color: #c0392b;
+  position: relative;
+}
+
+.cell-hit::after {
+  content: '✕';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.cell-miss {
+  background-color: #ecf0f1;
+  border-color: #bdc3c7;
+  position: relative;
+}
+
+.cell-miss::after {
+  content: '•';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #7f8c8d;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.cell-sunk {
+  background-color: #8e44ad;
+  border-color: #6c3483;
+  position: relative;
+}
+
+.cell-sunk::after {
+  content: '💥';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+
+.cell-preview {
+  background-color: #f39c12;
+  border-color: #d68910;
+  opacity: 0.7;
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
