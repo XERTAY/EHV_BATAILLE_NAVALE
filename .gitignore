@@ -1,0 +1,33 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Backend
+backend/target/
+backend/data/
+backend/*.log
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Tauri
+tauri/src-tauri/target/
+tauri/src-tauri/Cargo.lock
+
+# Docker
+*.env
+.env.local
+
+# Logs
+*.log
+logs/
+
