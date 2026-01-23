@@ -256,20 +256,20 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>🚢 BATAILLE NAVALE</h1>
+        <h1>BATAILLE NAVALE</h1>
         {gameState.currentPhase === 'GAME_OVER' && (
           <div className="game-over-message">
-            {gameState.winner === 'PLAYER' ? '🎉 Vous avez gagné !' : '💀 Vous avez perdu !'}
+            {gameState.winner === 'PLAYER' ? 'VICTOIRE !' : 'DEFAITE !'}
           </div>
         )}
         {gameState.currentPhase === 'PLAYING' && (
           <div className="game-status">
-            {gameState.currentPlayer === 'PLAYER' ? '🎯 Votre tour' : '⏳ Tour de l\'adversaire...'}
+            {gameState.currentPlayer === 'PLAYER' ? 'VOTRE TOUR' : 'TOUR ADVERSAIRE...'}
           </div>
         )}
         {gameState.currentPhase === 'PLACEMENT' && (
           <div className="game-status">
-            📍 Placez vos navires ({shipsToPlace.length} restant{shipsToPlace.length > 1 ? 's' : ''})
+            PLACEZ VOS NAVIRES ({shipsToPlace.length} RESTANT{shipsToPlace.length > 1 ? 'S' : ''})
           </div>
         )}
       </header>
@@ -298,7 +298,7 @@ function App() {
             onCellHover={setHoveredCoord}
             showShips={true}
             disabled={gameState.currentPhase !== 'PLACEMENT'}
-            title="Votre Grille"
+            title="VOTRE GRILLE"
             previewCoords={previewCoords}
             canPlace={canPlace}
           />
@@ -308,7 +308,7 @@ function App() {
             onCellClick={handleShoot}
             showShips={false}
             disabled={gameState.currentPhase !== 'PLAYING' || gameState.currentPlayer !== 'PLAYER'}
-            title="Grille Adversaire"
+            title="GRILLE ADVERSAIRE"
           />
         </div>
       </div>
@@ -316,28 +316,30 @@ function App() {
       <div className="game-info">
         <div className="ships-status">
           <div className="ships-section">
-            <h4>Vos Navires</h4>
+            <h4>VOS NAVIRES</h4>
             <div className="ships-list">
               {gameState.playerShips.map(ship => (
                 <div key={ship.id} className={`ship-status ${ship.sunk ? 'sunk' : ''}`}>
-                  {ship.name} {ship.sunk ? '💥' : '✅'}
+                  <span>{ship.name}</span>
+                  <span>{ship.sunk ? '[COULE]' : '[OK]'}</span>
                 </div>
               ))}
             </div>
           </div>
           <div className="ships-section">
-            <h4>Navires Adverses</h4>
+            <h4>NAVIRES ADVERSES</h4>
             <div className="ships-list">
               {gameState.opponentShips.map(ship => (
                 <div key={ship.id} className={`ship-status ${ship.sunk ? 'sunk' : ''}`}>
-                  {ship.name} {ship.sunk ? '💥' : '❓'}
+                  <span>{ship.name}</span>
+                  <span>{ship.sunk ? '[COULE]' : '[?]'}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
         <button className="reset-button" onClick={handleReset}>
-          🔄 Nouvelle Partie
+          NOUVELLE PARTIE
         </button>
       </div>
     </div>

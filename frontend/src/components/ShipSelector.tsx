@@ -26,7 +26,7 @@ export default function ShipSelector({
 }: ShipSelectorProps) {
   return (
     <div className="ship-selector">
-      <h3 className="ship-selector-title">Navires à placer</h3>
+      <h3 className="ship-selector-title">NAVIRES A PLACER</h3>
       <div className="ship-list">
         {ships.map((ship) => (
           <button
@@ -53,7 +53,7 @@ export default function ShipSelector({
         onClick={onToggleOrientation}
         disabled={disabled}
       >
-        {orientation === ShipOrientation.HORIZONTAL ? '↔ Horizontal' : '↕ Vertical'}
+        {orientation === ShipOrientation.HORIZONTAL ? 'HORIZONTAL' : 'VERTICAL'}
       </button>
     </div>
   );
