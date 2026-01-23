@@ -5,24 +5,60 @@
 }
 
 :root {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.5;
+  /* Charte graphique flat pixel */
+  --color-bg-primary: #0a1a2e;
+  --color-bg-secondary: #162447;
+  --color-bg-card: #1a2744;
+  --color-bg-grid: #0f1b2e;
+  
+  --color-accent-green: #00ff88;
+  --color-accent-green-dark: #00cc6a;
+  --color-accent-red: #ff4757;
+  --color-accent-red-dark: #cc3845;
+  --color-accent-orange: #ff6b35;
+  --color-accent-blue: #00d4ff;
+  --color-accent-yellow: #ffd700;
+  
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #b8c5d6;
+  --color-text-muted: #6b7a8f;
+  
+  --color-water-light: #1e3a5f;
+  --color-water-dark: #0d1b2a;
+  --color-ship: #00ff88;
+  --color-hit: #ff4757;
+  --color-miss: #6b7a8f;
+  --color-sunk: #8b0000;
+  --color-preview: #ff6b35;
+  
+  --border-radius: 8px;
+  --border-radius-small: 4px;
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-button: 0 2px 8px rgba(0, 255, 136, 0.3);
+  
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  line-height: 1.6;
   font-weight: 400;
+  font-size: 10px;
 
-  color-scheme: light;
-  color: #213547;
-  background-color: #ffffff;
+  color-scheme: dark;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 #root {
@@ -30,36 +66,76 @@ body {
   min-height: 100vh;
 }
 
-/* Pixel art font pour un style rétro */
-@font-face {
-  font-family: 'Pixel';
-  src: url('data:font/woff2;base64,') format('woff2');
+/* Arrière-plan avec motif de vagues pixelisées */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 50%, var(--color-bg-primary) 100%),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 20px,
+      rgba(30, 58, 95, 0.1) 20px,
+      rgba(30, 58, 95, 0.1) 21px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 20px,
+      rgba(30, 58, 95, 0.1) 20px,
+      rgba(30, 58, 95, 0.1) 21px
+    );
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+  z-index: -1;
+  opacity: 0.6;
 }
 
-/* Style pixel art pour les éléments de jeu */
+/* Pattern de vagues océaniques */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(0, 255, 136, 0.05) 0%, transparent 50%),
+    radial-gradient(circle at 40% 20%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Style pixel art pour tous les éléments */
 .cell,
 .grid,
-.ship-button {
+.ship-button,
+button {
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
 }
 
-/* Scrollbar personnalisée */
+/* Scrollbar personnalisée pixel-art */
 ::-webkit-scrollbar {
   width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 6px;
+  background: var(--color-bg-secondary);
+  border: 2px solid var(--color-bg-card);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 6px;
+  background: var(--color-accent-green);
+  border: 2px solid var(--color-bg-secondary);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: var(--color-accent-green-dark);
 }

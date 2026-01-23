@@ -2,26 +2,50 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .grid-title {
-  font-size: 18px;
-  font-weight: bold;
-  color: #2c3e50;
+  font-size: 14px;
+  font-weight: normal;
+  color: var(--color-text-primary);
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  text-shadow: 
+    1px 1px 0px var(--color-bg-primary),
+    2px 2px 0px var(--color-accent-green);
+  padding: 8px 16px;
+  background-color: var(--color-bg-card);
+  border: 2px solid var(--color-accent-blue);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-card);
 }
 
 .grid {
   display: flex;
   flex-direction: column;
   gap: 0;
-  background-color: #34495e;
-  padding: 8px;
-  border-radius: 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--color-bg-grid);
+  padding: 12px;
+  border: 3px solid var(--color-accent-blue);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-card);
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 36px,
+      rgba(0, 212, 255, 0.1) 36px,
+      rgba(0, 212, 255, 0.1) 37px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 36px,
+      rgba(0, 212, 255, 0.1) 36px,
+      rgba(0, 212, 255, 0.1) 37px
+    );
 }
 
 .grid-row {
@@ -36,21 +60,23 @@
 }
 
 .grid-label {
-  width: 32px;
-  height: 24px;
+  width: 36px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
-  font-size: 14px;
-  color: #2c3e50;
-  background-color: #ecf0f1;
-  border: 1px solid #bdc3c7;
+  font-weight: normal;
+  font-size: 10px;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-card);
+  border: 2px solid var(--color-water-light);
+  text-shadow: 1px 1px 0px var(--color-bg-primary);
+  font-family: 'Press Start 2P', 'Courier New', monospace;
 }
 
 .grid-corner {
-  width: 32px;
-  height: 24px;
-  background-color: #34495e;
-  border: 1px solid #34495e;
+  width: 36px;
+  height: 28px;
+  background-color: var(--color-bg-grid);
+  border: 2px solid var(--color-bg-grid);
 }
