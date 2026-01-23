@@ -1,0 +1,12 @@
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/game/GameResult.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/game/GameTurn.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/core/CellStatus.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/entities/Fleet.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/entities/Player.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/entities/Ship.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/core/Coordinate.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/core/ShipOrientation.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/entities/Grid.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/game/GameView.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/game/Game.java
+/var/tmp/vibe-kanban/worktrees/634c-interface-2d/EHV_BATAILLE_NAVALE/backend/src/main/java/domain/model/game/GameState.java

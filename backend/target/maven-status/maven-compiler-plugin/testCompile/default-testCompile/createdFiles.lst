@@ -1,0 +1,4 @@
+domain/model/game/GameTest.class
+domain/model/entities/ShipTest.class
+domain/model/entities/GridTest.class
+domain/model/core/CoordinateTest.class

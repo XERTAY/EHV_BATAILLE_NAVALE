@@ -1,0 +1,14 @@
+domain/model/core/CellStatus.class
+domain/model/core/Coordinate.class
+domain/model/game/GameView.class
+domain/model/game/GameTurn.class
+domain/model/entities/Fleet.class
+domain/model/game/GameView$1.class
+domain/model/game/GameState.class
+domain/model/game/GameResult.class
+domain/model/entities/Grid.class
+domain/model/entities/Ship.class
+domain/model/game/Game$1.class
+domain/model/game/Game.class
+domain/model/entities/Player.class
+domain/model/core/ShipOrientation.class
