@@ -53,24 +53,39 @@ Le diagramme inclut :
 
 
 
-## Lancer le jeu : 
+## Lancer le jeu
 
-Se mettre dans la racine du projet : 
+### Mode console (Makefile)
 
-Pour compiler : 
+Se mettre dans la racine du projet.
 
+Pour compiler :
 ```
 make compile
 ```
 
-Pour run : 
+Pour lancer :
+```
+make run
+```
 
-```
-make run 
+### Backend API (Spring Boot)
+
+Depuis la **racine** du projet, lancer le backend avec :
+
+```bash
+mvn spring-boot:run -pl app/backend
 ```
 
-ou bien après compilation :
+Ou aller dans le module backend puis lancer :
 
+```bash
+cd app/backend
+mvn spring-boot:run
 ```
-javac -d .src/**/*.java
-```
+
+L’API est disponible sur `http://localhost:8080` (ex. `GET /api/health`).
+
+**Si l’erreur « Adresse déjà utilisée » (port 8080) apparaît** : une autre instance du backend ou un autre programme utilise déjà le port. Soit :
+- arrêter l’autre processus : `lsof -i :8080` (ou `ss -tlnp | grep 8080`) pour voir le PID, puis `kill <PID>` ; ou fermer le terminal où le backend tourne ;
+- ou utiliser un autre port : dans `app/backend/resources/application.properties`, remplacer `server.port=8080` par `server.port=8081` (puis utiliser `http://localhost:8081`).

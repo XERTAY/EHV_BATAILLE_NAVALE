@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>com.ehv.bataillenavale</groupId>
-            <artifactId>model</artifactId>
+            <artifactId>core</artifactId>
             <version>0.1.0</version>
         </dependency>
         <dependency>
